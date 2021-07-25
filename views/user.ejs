@@ -1,0 +1,39 @@
+<style>
+div#frm *{display:inline}
+</style>
+
+<div id="frm">
+  <img src="<%= user.profileimage %>" class="rounded-circle" alt="Cinque Terre" width="45" height="45"> &nbsp;&nbsp;<h1><%= user.username %></h1>
+  <% if (! isfollow ){ %>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="button" class="btn btn-info"><a href="/blog/user/<%= user.username %>/follow">follow</a></button>
+  <% } %>
+  <% if (isfollow ){ %>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn btn-info"><a href="/blog/user/<%= user.username %>/unfollow">UnFollow</a></button>
+
+<% } %>
+</div>
+
+<% if ( frienduser.length!=0 ){ %>
+  <p>followed by</p>&nbsp;
+  <% frienduser.forEach(function(friend) { %>
+ <i><%= friend %></i>
+<% }) %>
+<% } %>
+<hr>
+<p><%= user.bio %></p>
+<p>related posts:</p>
+
+<% posts.forEach(function(post) { %>
+    <div class="post-preview">
+      
+      <h1><a style="text-decoration:none"  href="blog/posts/<%= post._id %>"><%= post.title %></a></h1>
+      <i><p class="lead">created by <%= post.user.username %> at <%= post.createdAt.toDateString() %></p></i>
+      </div>
+
+      <hr>
+    <% }) %>
+    </div>
+
+      

@@ -1,0 +1,102 @@
+<style>
+  a:link {
+  text-decoration: none;
+}
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-">
+      <div class="input-group">
+            <input type="search" class="form-control rounded" id="search" onkeyup="searchfunction()"  placeholder="Search here..." />
+            <br>
+      
+        <hr>
+       <div id="user-list"></div>
+      </div> 
+
+    </div>
+    <hr>
+    <div class="col-">
+      <ul id=userfilter></ul>
+    </div>
+    <div class="col">
+    <% if (typeof posts!='undefined' ){ %>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <% if (typeof user!='undefined' ) { %>
+              <p>
+                <%= user.username %>
+              </p>
+              
+              <% } %>
+              <% id = user._id %>
+    <% posts.forEach(function(post) { %>
+      <div class="post-preview">
+        <h1><a style="text-decoration:none"  href="blog/posts/<%= post._id %>"><%= post.title %></a></h1>
+        <i><p class="lead">created by <a style="text-decoration:none"  href="/blog/user/<%= post.user.username %>"> <%= post.user.username %></a> at <%= post.createdAt.toDateString() %></p></i>
+        <% if( post.user._id.equals(user._id) ) { %> 
+        <button type="button" class="btn btn-danger"><a style="text-decoration:none"  href="/blog/posts/<%= post._id %>/delete">delete</a></button>
+        <button type="button" class="btn btn-success"><a style="text-decoration:none"  href="/blog/updatepost/<%= post._id %>">Update</a></button>
+        <% } %>
+        </div>
+
+        <hr>
+      <% }) %>
+      </div>
+      </div>
+      </div>
+      </div>
+<% } %>
+  
+
+</div>
+</div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+          
+          function searchfunction() {
+            if(event.keyCode!=8){
+             ul=document.getElementById("userfilter");
+             li=ul.getElementsByTagName('li');
+             if(li.length>0){
+              ul.innerHTML = '';
+             }
+              axios.get('/search', {
+              params: {
+                ID: document.getElementById('search').value
+              }
+            })
+              .then(function (response) {
+                if(response.data.length>0){
+                  let i;
+                  for(i=0; i<response.data.length; i++){ 
+                    var node=document.createElement('LI');
+                    links = document.createElement('a');
+                    var img = new Image(35,35);
+                    img.src = `${response.data[i].profileimage}`;
+                    var link = '/blog/user/'+ response.data[0].username;
+                    links.href = link;
+                    var textnode=document.createTextNode(`${response.data[i].username}`)
+                    links.appendChild(textnode);
+                    node.appendChild(img);
+                    node.appendChild(links);
+                    document.getElementById("userfilter").appendChild(node);
+                  }
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              })
+              .then(function () {
+                // always executed
+              });
+
+            }
+            
+}
+      </script>
+      <!--  -->

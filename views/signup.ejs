@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class="bs-component">
+            
+            <%- include ("./partials/messages"); %>
+            <form action="/blog/signup" method="POST">
+                <fieldset>
+                    <legend>Sign up</legend>
+                    <div class="form-group">
+                        
+                        <label for="exampleInputPassword1" class="form-label mt-4">UserName</label>&nbsp;
+                        
+                        <input type="text" class="form-control" id="username" name="username" placeholder="UserName"
+                            value="<%= typeof username != 'undefined' ? username : '' %>">
+                    <!-- <small id="emailHelp" class="form-text text-muted"> -->
+                    
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                            placeholder="Enter email"
+                            value="<%= typeof email != 'undefined' ? email : '' %>">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-group">
+                        
+                            <label for="exampleInputPassword1" class="form-label mt-4">Password</label>&nbsp;
+                            <i class="bi bi-eye-slash" id="togglePassword"></i>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                                value="<%= typeof password != 'undefined' ? password : '' %>">
+                        <!-- <small id="emailHelp" class="form-text text-muted"> -->
+                        <small>Password should contain:<br> 1 uppercase<br> 1 lowercase <br> 1 symbol <br> max 8 length</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword2" class="form-label mt-4">Confirm Password</label>
+                        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password"
+                        value="<%= typeof password2 != 'undefined' ? password2 : '' %>" >
+                    </div>
+                    <br>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-lg btn-primary" type="submit">Sign Up</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye / eye slash icon
+    this.classList.toggle('bi-eye');
+});
+</script>

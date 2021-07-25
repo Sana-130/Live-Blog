@@ -1,0 +1,129 @@
+<%- include ("./partials/messages"); %>
+<header class="masthead" ></header>
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 text-center">
+          <h1 class="font-weight-light"><%= post.title %></h1>
+          <h4 class="font-weight-light"><%= post.description %></h4>
+           <br>
+        </div>
+      </div>
+    </div>
+  </header>
+  <img src= "<%= typeof post.postimage != 'undefined' ? post.postimage : '' %>" width=100% height=400/>
+  <br><br>
+  <a style="text-decoration:none"  href="/blog/user/<%= post.user.username %> " id="writer"><img src="<%= post.user.profileimage %>" class="rounded-circle" width="45" height="45">&nbsp;&nbsp;&nbsp;<%= post.user.username %></a> on <%= post.createdAt.toDateString() %></p>
+  <hr>
+
+
+<div>
+
+  <%- post.body %>
+  <hr>
+</div>
+<% if (! isliked){ %>
+<button type="button" class="btn btn-info" onclick="like()" id="like">like</a></button>
+<% } %>
+<% if (isliked) { %>
+<button type="button" class="btn btn-info" onclick="dislike()" id="dislike">dislike</a></button>
+<% } %>
+<p id="likescount"><%= post.likes %></p> 
+<p id=errortext ></p>
+<div class="container">
+  <div class="row">
+<div class="col-lg-6">
+  
+<form id="formcomment">
+<div class="form-group">
+  <label class="col-form-label mt-4" for="inputDefault">add a comment:</label>
+  <input type="text" class="form-control" placeholder="comment" id="text" name="text"><br><button type="submit" class="btn btn-primary" >Submit</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<hr>
+<% var currentdate=new Date(); %>
+<% comments=post.comments.reverse() %>
+<% comments.forEach(function(comment) { %>
+  <% var commentdate=new Date(comment.createdAt.toLocaleDateString()) %>
+  <% var difference_in_time=currentdate.getTime()- commentdate.getTime() %>
+  <% var datediff=difference_in_time/(1000*3600*24) %>
+  <% if( datediff<=7 && datediff>= 1){ %>
+    <% postdate= datediff.toFixed(0)  + ' days ago' %>
+    <% } else if(datediff<=30 && datediff>7) { %>
+      <% postdate=( datediff / 7).toFixed(0)  + ' weeks ago' %>
+      <% } else if(datediff<=365 && datediff>30) { %>
+        <% postdate= ( datediff / 30 ).toFixed(0)  + ' months ago' %>
+        <% } else if(datediff>=360) { %>
+          <% postdate= ( datediff / 360 ).toFixed(0)  + ' years ago' %>
+          <% } else if(datediff===0 || datediff>0 && datediff< 1 ) { %>
+            <% postdate= 'Today '+ commentdate.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true }) %>
+            <% } %>
+
+    <p><%= postdate %></p>
+    
+  <p><%= comment.username %>: <%= comment.text %></p>
+  <hr>
+<% }) %>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function like() {
+      var author=document.getElementById('writer').innerHTML;
+      axios.post('/blog/posts/<%= post._id %>/like', {
+        counter: 1,
+        author
+      })
+        .then(function (response) {
+          document.getElementById('likescount').innerHTML=response.data;
+          window.location.reload()
+          console.log(response)
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    }
+    function dislike(){
+      axios.post('/blog/posts/<%= post._id %>/unlike', {
+        counter: -1
+      })
+        .then(function (response) {
+          document.getElementById('likescount').innerHTML=response.data;
+          window.location.reload()
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+    formcomment.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      let comment=e.target.elements.text.value;
+      if(comment){
+        comment=comment.trim();
+        axios.post('/blog/posts/<%= post._id %>/comment', {
+        comment
+      })
+      .then(function(response){
+        window.location.reload()
+        console.log(response)
+      })
+      .catch(function(error){
+        console.log(error)
+      })
+      }
+      else{
+        document.getElementById('errortext').innerHTML= 'cannot post a blank comment';
+      }
+   
+    })
+    
+</script>
+
+

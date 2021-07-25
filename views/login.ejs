@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class="bs-component">
+            
+            <%- include ("./partials/messages"); %>
+            <form action="#" method="POST">
+                <fieldset>
+                    <legend>Login</legend>
+                    <div class="form-group">
+                        
+                        <label for="exampleInputPassword1" class="form-label mt-4">UserName</label>&nbsp;
+                        
+                        <input type="text" class="form-control" id="username" name="username" placeholder="UserName"
+                            value="<%= typeof username != 'undefined' ? username : '' %>">
+                    <!-- <small id="emailHelp" class="form-text text-muted"> -->
+                    
+                    </div>
+                    <div class="form-group">
+                        
+                            <label for="exampleInputPassword1" class="form-label mt-4">Password</label>&nbsp;
+                            <i class="bi bi-eye-slash" id="togglePassword"></i>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                                value="<%= typeof password != 'undefined' ? password : '' %>">
+                        <!-- <small id="emailHelp" class="form-text text-muted"> -->
+                    </div>
+                    <br>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-lg btn-primary" type="submit">Login</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye / eye slash icon
+    this.classList.toggle('bi-eye');
+});
+</script>

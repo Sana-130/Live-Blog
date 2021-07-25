@@ -1,0 +1,40 @@
+
+<%- include ("./partials/messages"); %>
+<h1>Add a new Post</h1>
+<div>
+  <form action="/blog/posts"  enctype="multipart/form-data" method="POST">
+    <fieldset>
+   
+
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="inputDefault">Title</label>
+        <input type="text" class="form-control" placeholder="Title" id="title" name="title">
+      </div>
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="inputDefault">description</label>
+        <input type="text" class="form-control" placeholder="description" id="description" name="description">
+      </div>
+      <div class="form-group">
+        <label for="exampleTextarea" class="form-label mt-4"> Content</label>
+        <textarea class="form-control" rows="3" id="body" name="body"></textarea>
+      </div>
+      <br>
+   
+      <div class="form-group">
+        <label for="exampleTextarea" class="form-label mt-4"> image</label>
+        <input type="file" name="postimage" accept="image/*" />
+      </div>
+        
+     
+      <div class="form-group my-4 text-center">
+        <button class="btn btn-primary" type="submit">Create Post</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+
+
+
+
+

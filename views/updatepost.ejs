@@ -1,0 +1,31 @@
+<%- include ("./partials/messages"); %>
+<h1>Update Your Post</h1>:<p><%= post.title %></p>
+<div>
+  <form action="/blog/updatepost/<%= post._id %>"  method="POST">
+    <fieldset>
+   
+
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="inputDefault">Title</label>
+        <input type="text" class="form-control" placeholder="Title" id="title" name="title"  value="<%= typeof post.title != 'undefined' ? post.title : '' %>">
+       
+      </div>
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="inputDefault">description</label>
+        <input type="text" class="form-control" placeholder="description" id="description" name="description"  value="<%= typeof post.description != 'undefined' ? post.description : '' %>">
+      </div>
+      <div class="form-group">
+        <label for="exampleTextarea" class="form-label mt-4"> Content</label>
+        <textarea class="form-control" rows="3" id="body" name="body" ><%= typeof post.body != 'undefined' ? post.body : '' %></textarea>
+      </div>
+      <br>
+
+      <div class="form-group my-4 text-center">
+        <button class="btn btn-primary" type="submit">Update Post</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+
+

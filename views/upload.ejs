@@ -1,0 +1,9 @@
+<form action="/blog/upload" enctype="multipart/form-data" method="POST"> 
+    <input type="file" name="myImage" accept="image/*" />
+    <input type="submit" value="Upload Photo"/>
+  </form>
+
+
+  <div>
+  <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+  </div>

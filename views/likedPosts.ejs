@@ -1,0 +1,16 @@
+<% if(posts.length!=0) { %>
+<% posts.forEach(function(post) { %>
+    <div class="post-preview">
+      
+      <h1><a style="text-decoration:none"  href="blog/posts/<%= post._id %>"><%= post.title %></a></h1>
+      <i><p class="lead">created by <a style="text-decoration:none"  href="/blog/user/<%= post.user.username %>"><%= post.user.username %></a> at <%= post.createdAt.toDateString() %></p></i>
+      </div>
+
+      <hr>
+    <% }) %>
+    <% } %>
+
+<% if(posts.length==0) { %>
+  <p class="lead">oops no liked posts found..!! </p>
+  <a href="/">Back home</a>
+<% } %>

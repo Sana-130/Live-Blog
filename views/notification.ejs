@@ -1,0 +1,34 @@
+<% if (notifications.length !=0) { %>
+    <table class="table table-hover"> 
+<% notificationss= notifications.reverse() %>
+<% notificationss.forEach(function(notification) { %>
+    <tr class="table-info">
+        <th scope="row"><%= notification.date.toDateString() %></th>
+<td><%= notification.message %> </td>
+<td> time: <%= notification.date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true }) %></td>
+<td><a href="<%= notification.link %>">info</a></td>
+</tr>
+<% }) %>
+    </table>
+    <button type="button" class="btn btn-warning" onclick="clearall()">clear</button>
+<% } %>
+<% if (notifications.length ==0) { %>
+<p>no new notifications found !!</p>
+<h4><a href="/">back home</a></h4>
+<% } %>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function clearall(){
+        axios.post('/notifications/clear', {   
+    })
+    .then (function(response){
+        if(response){
+            window.location.reload()
+        }
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+}
+</script>
