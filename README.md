@@ -1,6 +1,6 @@
 # Blog_App_2021
 
-A Blog App made with node.js, express and mongoose
+A Blog App made with node.js, express and mongodb
 
 features included:
 
