@@ -1,5 +1,5 @@
 const express=require('express');
-const {User, Post}= require('../models/user');
+const {User, Post}= require('../models/models');
 const router= express.Router();
 
 const {ensureAuthenticated}= require('../config/auth.js');
