@@ -1,4 +1,4 @@
-# Blog_App_2021
+# Live Blog
 
 A Blog App made with node.js, express and mongodb
 
